@@ -1,0 +1,31 @@
+PROGNAME = my_prog.tos
+
+CC = cc68x
+AS = gen
+CD = cd
+RM = Rm
+
+CFLAGS= -I./
+ 
+ASFLAGS = -D -L2
+
+C_OBJ = \
+
+serial.o
+
+ASM_OBJ = \
+clear.o
+
+OBJ = $(C_OBJ) $(ASM_OBJ)
+
+$(PROGNAME): $(OBJ)
+	$(CC) -o $(PROGNAME) $(OBJ)
+
+file.o: file.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+some_file.o: some_file.s
+	$(AS) $(ASFLAGS) $< -o$@
+
+clean:
+	!$(RM) $(PROGNAME) $(OBJ)
