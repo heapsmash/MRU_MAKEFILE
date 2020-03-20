@@ -1,4 +1,4 @@
-PROGNAME = my_prog.tos
+PROGNAME = my_game_name.tos
 
 CC = cc68x
 AS = gen
@@ -10,21 +10,26 @@ CFLAGS= -I./
 ASFLAGS = -D -L2
 
 C_OBJ = \
-
-serial.o
+file_one.o \
+file_two.o
 
 ASM_OBJ = \
-clear.o
+asm_file_one.o \
+asm_file_two.o
 
 OBJ = $(C_OBJ) $(ASM_OBJ)
 
 $(PROGNAME): $(OBJ)
 	$(CC) -o $(PROGNAME) $(OBJ)
 
-file.o: file.c
+file_one.o: file_one.c
+	$(CC) $(CFLAGS) -c $< -o $@
+file_two.o: file_two.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-some_file.o: some_file.s
+asm_file_one.o: asm_file_one.s
+	$(AS) $(ASFLAGS) $< -o$@
+asm_file_two.o: asm_file_two.s
 	$(AS) $(ASFLAGS) $< -o$@
 
 clean:
